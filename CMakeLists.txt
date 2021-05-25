@@ -1,7 +1,12 @@
 cmake_minimum_required(VERSION 2.8.3)
 project(mav_tunnel_nav)
 
-set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++14 -Wall -Wextra")
+# Set target C++ standard and required compiler features
+# https://github.com/PointCloudLibrary/pcl/issues/3104
+set(CMAKE_CXX_STANDARD 14)
+set(CMAKE_CXX_STANDARD_REQUIRED ON)
+
+set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wall -Wextra")
 set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wno-unused-parameter")
 set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wno-maybe-uninitialized")
 set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -O3 -DNDEBUG")
@@ -25,12 +30,14 @@ find_package(catkin REQUIRED COMPONENTS
   nav_msgs
   visualization_msgs
   dynamic_reconfigure
+
+  mav_msgs
 )
 
 file(MAKE_DIRECTORY ${CATKIN_DEVEL_PREFIX}/include)
 
 find_package(gazebo REQUIRED)
-find_package(ignition-transport4 REQUIRED)
+find_package(ignition-transport8 REQUIRED)
 
 # PCL
 find_package(PCL 1.7 REQUIRED)
@@ -191,7 +198,7 @@ add_dependencies(${adhocnet_plugin_name}
   ${${PROJECT_NAME}_EXPORTED_TARGETS} ${catkin_EXPORTED_TARGETS})
 target_link_libraries(${adhocnet_plugin_name}
   ${catkin_LIBRARIES}
-  ${ignition-transport4_LIBRARIES}
+  ${ignition-transport8_LIBRARIES}
 )
 
 # Create the libdrift_odometry_plugin.so library.
@@ -203,7 +210,7 @@ target_link_libraries(${drift_odometry_plugin_name}
   ${catkin_LIBRARIES}
   ${protobuf_lib_name}
   protobuf::libprotobuf
-  ${ignition-transport4_LIBRARIES}
+  ${ignition-transport8_LIBRARIES}
   ${OpenCV_LIBRARIES}
 )
 add_dependencies(${drift_odometry_plugin_name} protobuf_compilation)

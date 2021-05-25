@@ -1,1 +1,3 @@
-- git: {local-name: mav-tunnel-nav, uri: 'https://github.com/tidota/mav-tunnel-nav.git', version: master}
+- git: {local-name: mav_tunnel_nav, uri: 'https://github.com/tidota/mav-tunnel-nav.git', version: master}
+- git: {local-name: mav_comm, uri: 'git@github.com:ethz-asl/mav_comm.git'}
+- git: {local-name: rotors_simulator, uri: 'https://github.com/ethz-asl/rotors_simulator.git', version: master}
